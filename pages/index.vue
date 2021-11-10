@@ -1,10 +1,19 @@
-<template><Button>abc</Button></template>
+<template>
+    <Button @click="onClick">logout</Button>
+</template>
 
 <script setup>
 import { useAuthStore } from "~/stores/auth"
 
 const authStore = useAuthStore()
-useDirectus()
-</script>
+const directus = useDirectus()
+const router = useRouter()
 
-<style scoped></style>
+const onClick = async () => {
+    //this removes `access_token` from localstorage
+    await directus.auth.logout()
+    authStore.clearUser()
+
+    router.push("login")
+}
+</script>

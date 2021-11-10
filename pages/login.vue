@@ -6,7 +6,11 @@
                 <i class="pi pi-user"></i>
             </span>
 
-            <InputText v-model="email" placeholder="E-mail" />
+            <InputText
+                v-model="email"
+                placeholder="E-mail"
+                autocomplete="email"
+            />
         </div>
 
         <div class="p-inputgroup">
@@ -17,8 +21,7 @@
             <Password
                 v-model="password"
                 placeholder="Password"
-                :feedback="false"
-                :promptLabel="'test'"
+                autocomplete="current-password"
             />
         </div>
 
@@ -38,13 +41,11 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { inject, ref } from "vue"
 import { useAuthStore, IUser } from "../stores/auth"
 
-const directus = useDirectus()
-const authStore = useAuthStore()
 const router = useRouter()
-const route = useRoute()
+const authStore = useAuthStore()
+const directus = useDirectus()
 
 const email = ref("")
 const password = ref("")
@@ -52,19 +53,17 @@ const password = ref("")
 const onSubmit = async () => {
     try {
         if (email.value && password.value) {
-            const loginResponse = await directus.auth.login({
+            //this automatically sets `access_token` on local storage
+            await directus.auth.login({
                 email: email.value,
                 password: password.value,
             })
 
             const userData = (await directus.users.me.read()) as IUser
-            authStore.$patch({
-                userData,
-                token: loginResponse.access_token,
-            })
+            authStore.setUser(userData)
 
             // sending back to home
-            window.location.href = "/"
+            router.push("/")
         }
     } catch (e) {
         console.log("Error on login:", e)

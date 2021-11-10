@@ -1,4 +1,4 @@
-import { defineStore, getActivePinia } from "pinia"
+import { defineStore } from "pinia"
 
 export interface IUser {
     id: "string"
@@ -9,20 +9,17 @@ export interface IUser {
     role: "string"
 }
 
-interface IAuthState {
-    token?: string
-    userData?: IUser
-}
-
 export const useAuthStore = defineStore({
     id: "auth",
-    state: (): IAuthState => ({
-        token: undefined,
-        userData: undefined,
+    state: () => ({
+        userData: {} as IUser,
     }),
-    getters: {
-        token: (state) => {
-            if (process.client) return useDirectus().auth.token
+    actions: {
+        setUser(data: IUser) {
+            this.$patch({ userData: data })
+        },
+        clearUser() {
+            this.$patch({ userData: undefined })
         },
     },
 })

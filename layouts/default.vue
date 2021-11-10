@@ -9,8 +9,7 @@
             p-8
         "
     >
-        <slot v-if="isAuthenticated" />
-        <ProgressSpinner v-else class="loader" />
+        <slot v-if="isMounted && isAuthenticated" />
     </div>
 </template>
 
@@ -19,31 +18,23 @@ import { useAuthStore } from "~/stores/auth"
 
 const router = useRouter()
 const authStore = useAuthStore()
+const directus = useDirectus()
 
-console.log(authStore.$state.token)
-console.log(useDirectus().auth.token)
-const isAuthenticated = authStore.token
-
-if (!isAuthenticated) {
+//checking if `access_token` exists on localstorage
+const isAuthenticated = directus.auth.token
+if (isAuthenticated) {
+    const userData = await directus.users.me.read()
+    authStore.setUser(userData)
+} else {
     router.push("login")
 }
+
+//preventing server-side errors
+//reference: https://github.com/nuxt/framework/issues/646#issuecomment-961456117
+const isMounted = ref(false)
+onMounted(() => {
+    isMounted.value = true
+})
 </script>
 
-<style>
-@keyframes p-progress-spinner-color {
-    100%,
-    0% {
-        stroke: var(--blue-100);
-    }
-    40% {
-        stroke: var(--blue-100);
-    }
-    66% {
-        stroke: var(--blue-100);
-    }
-    80%,
-    90% {
-        stroke: var(--blue-100);
-    }
-}
-</style>
+<style></style>
