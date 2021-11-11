@@ -1,31 +1,3 @@
-# Nuxt 3 + PrimeVue + Directus SDK
+# Create Nuxt3 Directus
 
-Boilerplate project with Nuxt 3 + PrimeVue + Directus SDK with jwt authentication.
-
-We recommend to look at the [documentation](https://v3.nuxtjs.org).
-
-## Setup
-
-Make sure to install the dependencies
-
-```bash
-yarn install
-```
-
-## Development
-
-Start the development server on http://localhost:3000
-
-```bash
-yarn dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-yarn build
-```
-
-Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment).
+This projects is a CLI to generate a template project using Nuxt3 integrated with Directus SDK, providing a jwt authentication flow.

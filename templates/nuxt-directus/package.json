@@ -1,0 +1,20 @@
+{
+    "name": "<%= projectName %>",
+    "private": true,
+    "scripts": {
+        "dev": "nuxi dev",
+        "build": "nuxi build",
+        "start": "node .output/server/index.mjs"
+    },
+    "devDependencies": {
+        "nuxt3": "latest"
+    },
+    "dependencies": {
+        "@directus/sdk": "9.0.0-rc.100",
+        "@pinia/nuxt": "^0.1.2",
+        "pinia": "^2.0.2",
+        "primeflex": "^3.1.0",
+        "primeicons": "^5.0.0",
+        "primevue": "^3.8.2"
+    }
+}
