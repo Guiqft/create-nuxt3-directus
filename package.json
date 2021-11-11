@@ -1,19 +1,29 @@
 {
-    "private": true,
+    "name": "create-nuxt3-directus",
+    "version": "1.0.0",
+    "description": "This projects is a CLI to generate a template project using Nuxt3 integrated with Directus SDK, providing a jwt authentication flow.",
+    "main": "dist/index.js",
+    "repository": "git@github.com:Guiqft/nuxt3-primevue-directus.git",
+    "author": "Guilherme Oliveira <guilherme.oliveira@luizalabs.com>",
+    "license": "MIT",
+    "private": false,
     "scripts": {
-        "dev": "nuxi dev",
-        "build": "nuxi build",
-        "start": "node .output/server/index.mjs"
+        "start": "ts-node src/index.ts",
+        "build": "tsc && shx rm -rf dist/templates && shx cp -r templates dist"
     },
+    "bin": "./dist/index.js",
     "devDependencies": {
-        "nuxt3": "latest"
+        "@types/ejs": "^3.1.0",
+        "@types/inquirer": "^8.1.3",
+        "@types/node": "^16.11.7",
+        "@types/yargs": "^17.0.5",
+        "shx": "^0.3.3",
+        "ts-node": "^10.4.0",
+        "typescript": "^4.4.4"
     },
     "dependencies": {
-        "@directus/sdk": "9.0.0-rc.100",
-        "@pinia/nuxt": "^0.1.2",
-        "pinia": "^2.0.2",
-        "primeflex": "^3.1.0",
-        "primeicons": "^5.0.0",
-        "primevue": "^3.8.2"
+        "ejs": "^3.1.6",
+        "inquirer": "^8.2.0",
+        "yargs": "^17.2.1"
     }
 }
